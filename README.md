@@ -1,190 +1,316 @@
-# Scalable RAG Data Pipeline System
+# RAG AI Platform — Intelligent Document Retrieval & AI Assistant
 
-A Data Engineering style Retrieval-Augmented Generation pipeline that automates document ingestion, chunking, embedding generation, vector indexing, and semantic search using **LangChain**, **ChromaDB**, **Airflow**, **FastAPI**, and **AWS-ready storage utilities**.
+RAG AI Platform is a full-stack AI-powered Retrieval-Augmented Generation (RAG) system designed to allow users to upload PDF documents and interact with them using natural language queries. The platform combines semantic vector search, local LLM inference, secure authentication, and persistent chat history into a scalable AI document assistant.
 
-## Resume Version
+This project demonstrates the integration of FastAPI microservices, ChromaDB vector databases, local open-source LLMs, React frontend engineering, and semantic retrieval pipelines into a production-style AI application.
 
-**Built a scalable Retrieval-Augmented Generation (RAG) data pipeline using LangChain, ChromaDB/Pinecone-style vector indexing, Airflow, FastAPI, and AWS to automate distributed document ingestion, embedding generation, semantic search, and API-based retrieval.**
+---
 
-## Tech Stack
+# 🚀 Project Overview
 
-- **Python**: Core pipeline development
-- **LangChain**: Document loading, chunking, and embedding workflow
-- **ChromaDB**: Local vector database for semantic search
-- **Airflow**: Scheduled ingestion and indexing workflow
-- **FastAPI**: REST API for upload, ingestion, and search
-- **AWS S3**: Cloud-ready document storage helper
-- **Docker**: Containerized deployment
+The platform allows users to:
 
-## Architecture
+- Authenticate securely using JWT-based login
+- Upload and manage PDF documents
+- Ask AI-powered questions from uploaded documents
+- Perform semantic document retrieval using embeddings
+- Generate contextual responses using local LLMs
+- Store chat history persistently
+- Maintain user-isolated vector databases
+- View source citations for generated answers
+- Delete uploaded documents dynamically
 
-```text
-Raw Documents/PDFs
-       |
-       v
-Document Loader
-       |
-       v
-Text Chunking with LangChain
-       |
-       v
-Embedding Generation
-       |
-       v
-ChromaDB Vector Index
-       |
-       v
-FastAPI Search Endpoint
-       |
-       v
-Semantic Search Results for RAG Applications
-```
+The application simulates a scalable AI-powered enterprise document intelligence system.
 
-## Features
+---
 
-- Upload PDF, TXT, and Markdown files through API
-- Load raw documents from local storage
-- Split documents into overlapping chunks
-- Generate embeddings using Hugging Face sentence transformers
-- Persist vectors in ChromaDB
-- Search documents using semantic similarity
-- Schedule ingestion pipeline with Airflow
-- AWS S3 helper for cloud document storage
-- Docker-ready API deployment
+# 🧠 Core AI Pipeline
 
-## Project Structure
+The system performs:
 
-```text
-rag-data-pipeline-system/
-├── app/
-│   ├── main.py              # FastAPI application
-│   ├── ingest.py            # Document ingestion and vector indexing
-│   ├── retriever.py         # Semantic search logic
-│   ├── document_loader.py   # PDF/TXT/MD loader
-│   ├── aws_utils.py         # AWS S3 helper
-│   └── config.py            # Environment-based settings
-├── airflow/
-│   └── dags/
-│       └── rag_ingestion_dag.py
-├── data/
-│   ├── raw/
-│   └── processed/
-├── scripts/
-│   └── validate_documents.py
-├── tests/
-│   └── test_health.py
-├── Dockerfile
-├── docker-compose.yml
-├── requirements.txt
-├── .env.example
-└── README.md
-```
+- PDF text extraction
+- Text chunking
+- Embedding generation
+- Vector indexing
+- Semantic similarity retrieval
+- LLM-based contextual response generation
 
-## Local Setup
+The platform uses Retrieval-Augmented Generation (RAG) architecture for accurate and context-aware responses.
 
-### 1. Clone the repository
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+- React.js
+- TailwindCSS
+- Axios
+- React Markdown
+- Lucide React Icons
+
+## Backend
+
+- FastAPI
+- Python
+- SQLAlchemy
+- JWT Authentication
+- Passlib bcrypt
+
+## Database
+
+- SQLite
+- ChromaDB Vector Database
+
+## AI / ML
+
+- SentenceTransformers
+- all-MiniLM-L6-v2
+- Ollama
+- Llama 3.2
+- Semantic Similarity Search
+
+---
+
+# ✨ Key Features
+
+- JWT Authentication System
+- Secure User-based Document Isolation
+- PDF Upload & Processing
+- Semantic Vector Search
+- Local LLM Integration
+- AI Question Answering
+- Persistent Chat History
+- Multi-document Support
+- Source Citation Tracking
+- Delete Uploaded Documents
+- Modern SaaS-style Dashboard
+- Responsive UI Design
+
+---
+
+# 🏗️ System Architecture
+
+![System Architecture](screenshots/system-architecture.png)
+
+---
+
+# 📦 Installation
+
+## Clone Repository
 
 ```bash
-git clone https://github.com/your-username/rag-data-pipeline-system.git
-cd rag-data-pipeline-system
+git clone https://github.com/YOUR_USERNAME/rag-ai-platform.git
+
+cd rag-ai-platform
 ```
 
-### 2. Create virtual environment
+---
+
+# ⚙️ Backend Setup
 
 ```bash
+cd backend
+
 python3 -m venv venv
+
 source venv/bin/activate
-```
 
-### 3. Install dependencies
-
-```bash
 pip install -r requirements.txt
+
+uvicorn main:app --reload
 ```
 
-### 4. Configure environment
+Backend runs on:
 
 ```bash
-cp .env.example .env
+http://127.0.0.1:8000
 ```
 
-### 5. Run FastAPI server
+API Documentation:
 
 ```bash
-uvicorn app.main:app --reload
-```
-
-Open API docs:
-
-```text
 http://127.0.0.1:8000/docs
 ```
 
-## API Usage
+---
 
-### Health Check
+# 🧠 Install Ollama & LLM
 
-```bash
-curl http://127.0.0.1:8000/
-```
-
-### Upload Document
+Install Ollama:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/upload" \
-  -F "file=@sample.pdf"
+https://ollama.com
 ```
 
-### Run Ingestion
+Pull Llama 3.2 model:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/ingest"
+ollama pull llama3.2
 ```
 
-### Semantic Search
+Run model:
 
 ```bash
-curl -X POST "http://127.0.0.1:8000/search" \
-  -H "Content-Type: application/json" \
-  -d '{"query":"What is retrieval augmented generation?", "top_k":5}'
+ollama run llama3.2
 ```
 
-## Run with Docker
+---
+
+# 💻 Frontend Setup
 
 ```bash
-docker compose up --build
+cd frontend
+
+npm install
+
+npm run dev
 ```
 
-## Airflow DAG
+Frontend runs on:
 
-The DAG `rag_document_ingestion_pipeline` runs two steps:
+```bash
+http://localhost:5173
+```
 
-1. Validate raw documents
-2. Ingest documents into ChromaDB
+---
 
-DAG file:
+# 🔍 API Endpoints
+
+| Method | Endpoint          | Description          |
+| ------ | ----------------- | -------------------- |
+| POST   | `/signup`         | Create new user      |
+| POST   | `/login`          | Authenticate user    |
+| GET    | `/me`             | Current user details |
+| POST   | `/upload`         | Upload PDF           |
+| POST   | `/ask`            | Ask AI questions     |
+| GET    | `/history`        | Chat history         |
+| GET    | `/documents`      | Uploaded documents   |
+| DELETE | `/documents/{id}` | Delete document      |
+
+---
+
+# 📸 Application Preview
+
+## 🔐 Authentication System
+
+![Login Page](screenshots/login-page.png)
+
+---
+
+## 🖥️ Main Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+---
+
+## 📄 PDF Upload System
+
+![Upload](screenshots/upload-page.png)
+
+---
+
+## 🤖 AI Question Answering
+
+![AI Response](screenshots/ai-response.png)
+
+---
+
+# 📈 System Capabilities
+
+The platform provides:
+
+- Real-time semantic document retrieval
+- AI-powered contextual answering
+- Persistent vector indexing
+- User-isolated embeddings
+- Source-based AI responses
+- Document lifecycle management
+- Local AI inference without cloud dependency
+
+---
+
+# 📁 Project Structure
 
 ```text
-airflow/dags/rag_ingestion_dag.py
+rag-ai-platform/
+│
+├── backend/
+│   ├── main.py
+│   ├── requirements.txt
+│   ├── rag_app.db
+│   └── uploads/
+│
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── screenshots/
+│   ├── login-page.png
+│   ├── dashboard.png
+│   ├── upload-page.png
+│   ├── ai-response.png
+│   └── system-architecture.png
+│
+├── .gitignore
+└── README.md
 ```
 
-## Future Improvements
+---
 
-- Add Pinecone support for managed vector search
-- Add PostgreSQL metadata tracking
-- Add distributed ingestion using AWS SQS or Kafka
-- Add evaluation metrics for retrieval quality
-- Add LLM answer generation endpoint
-- Deploy FastAPI on AWS ECS or EC2
-- Store document metadata and lineage for observability
+# 📈 System Workflow
 
-## Resume Bullet Points
+1. User uploads PDF document
+2. Backend extracts text from PDF
+3. Text is split into semantic chunks
+4. Embeddings are generated using SentenceTransformers
+5. Embeddings stored inside ChromaDB
+6. User asks question
+7. Semantic search retrieves relevant chunks
+8. Retrieved context sent to local LLM
+9. Llama 3.2 generates contextual response
+10. Chat history stored in SQLite
 
-- Built an end-to-end RAG data pipeline using LangChain, ChromaDB, FastAPI, Airflow, and AWS-ready S3 utilities to automate document ingestion, embedding generation, and semantic retrieval.
-- Designed scalable document processing workflow with chunking, vector indexing, and scheduled orchestration to support AI-powered question-answering applications.
-- Developed REST APIs for document upload, ingestion triggering, and semantic search, enabling real-time retrieval over indexed enterprise documents.
-- Containerized the pipeline with Docker and structured the project for cloud deployment on AWS infrastructure.
+---
 
-## LinkedIn/GitHub Description
+# 🔮 Future Improvements
 
-A scalable Retrieval-Augmented Generation data pipeline built with LangChain, ChromaDB, Airflow, FastAPI, and AWS-ready storage utilities. The system ingests documents, generates embeddings, stores them in a vector database, and exposes semantic search APIs for AI-powered applications.
+- Docker containerization
+- PostgreSQL migration
+- Redis caching
+- Airflow ingestion pipelines
+- AWS deployment
+- Streaming AI responses
+- OCR support for scanned PDFs
+- Admin analytics dashboard
+- Multi-user collaboration
+- Kubernetes deployment
+
+---
+
+# ⚠️ Disclaimer
+
+This platform is intended for:
+
+- Research
+- Educational purposes
+- AI experimentation
+- Semantic retrieval demonstrations
+
+It is NOT intended for sensitive production workloads without additional security hardening.
+
+---
+
+# 👨‍💻 Author
+
+Himesh Engu
+
+Master's in Computer Science  
+Northern Arizona University
+
+---
+
+# 📄 Resume Project Summary
+
+Built a full-stack AI-powered Retrieval-Augmented Generation (RAG) platform using FastAPI, React.js, ChromaDB, SQLite, JWT authentication, SentenceTransformers, and locally hosted Llama 3.2 via Ollama for secure semantic document retrieval, contextual question answering, persistent chat history, and intelligent AI-assisted document interaction.
