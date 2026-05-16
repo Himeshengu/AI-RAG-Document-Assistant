@@ -311,6 +311,5 @@ Northern Arizona University
 
 ---
 
-# 📄 Resume Project Summary
 
 Built a full-stack AI-powered Retrieval-Augmented Generation (RAG) platform using FastAPI, React.js, ChromaDB, SQLite, JWT authentication, SentenceTransformers, and locally hosted Llama 3.2 via Ollama for secure semantic document retrieval, contextual question answering, persistent chat history, and intelligent AI-assisted document interaction.
