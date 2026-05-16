@@ -1,0 +1,26 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Database
+*.db
+
+# ChromaDB
+chroma_db/
+data/chroma_db/
+
+# Environment
+.env
+
+# Node
+node_modules/
+
+# Mac
+.DS_Store
+
+# Uploads
+uploads/
+
+# Logs
+*.log
